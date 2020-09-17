@@ -1,8 +1,8 @@
 FMT = '\nRoots of %s: %g';
 
-[result_1, status] = AllRoots([1,0,-10], 1, 0.001, 10);
+[result_1, status] = AllRoots([1 0 -10], 1j, 0.000001, 50);
 %result_2 = AllRoots([1,0,0,0,-10], 1j, 0.001, 10);
-%result_3 = AllRoots([1,0,0,0,1], 1j, 0.001, 10);
+[result_3, status] = AllRoots([1 0 0 0 1], 1j, 0.000001, 50);
 %result_4 = AllRoots([1,-2,1], 1j, 0.001, 10);
 %result_5 = AllRoots([
 %    1,
@@ -27,6 +27,8 @@ FMT = '\nRoots of %s: %g';
 %     -8752948036761600000,
 %     2432902008176640000], 1j, 0.001, 10);
 disp(result_1)
+fprintf('\n')
+disp(result_3)
 %fprintf(FMT, 'x^2-10=0', result_1);
 % fprintf(FMT, 'x^4-10=0', result_2);
 % fprintf(FMT, 'x^4+1=0', result_3);
