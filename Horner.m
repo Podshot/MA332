@@ -24,4 +24,4 @@ px=sum+c(length(c));        %add constant to sum
 %%% DIVIDES FUNCTION %%%
 u = c;
 v = [1 x0];
-[q,r] = deconv(u,v)
+[q,r] = deconv(u,v);
