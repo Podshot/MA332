@@ -1,8 +1,29 @@
-function [r, status] = AR(c,x0,epsilon,maxitr,loud)
-%AR Summary of this function goes here
-%   Detailed explanation goes here
+function [r, status] = AllRoots(c,x0,epsilon,maxitr,loud)
+%AllRoots: This function attempts to find all roots of a polynomial.
+%   This function uses Newton's Method to identify a root of the polynomial
+%   whose coefficents are input as 'c'. After a root is identified, the
+%   function uses deflation to form a new polynomial to replace 'c'
+%   in the next iteration. This repeats, calling Nettons' Method until all roots
+%   are found. Status = 0 indicates success. Status = 1 indicates that
+%   Newton's Method failed. Status = 2 is reserved for other failure of the
+%   function. Authors: Haley Braker, Ben Gothard, Madison Lindfelt, Taryn
+%   Perry. Date: 09-17-2020.
+
+if nargin < 4
+    error('Not Enough Inputs')
+end
+
+if nargin < 5
+    loud = 0;
+end
+
+if epsilon <= 0 || maxitr <= 0
+    error('''epsilon'' and ''maxitr'' must be greater than 0')
+end
+
 l = length(c) - 1;
-roots = zeros(1,l);
+roots = zeros(1,l);    
+
 for i = 1:l
     [xbest,pxbest,nitr,q,status] = NewtonPoly(c,x0,epsilon,maxitr,loud);
     roots(i) = xbest;
