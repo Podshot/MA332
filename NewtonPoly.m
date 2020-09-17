@@ -54,11 +54,11 @@ for i = 0:maxitr
     if loud == 1
     fprintf('Itr:%d x:%.2f |f(x)|:%.2e\n',nitr,x0,afx)
     end
-    
+  
     if afx < epsilon
         status = 0;
         % Synthetic Division
-        div = [1 xbest];
+        div = [1 -xbest];
         [q,r] = deconv(c,div);
         return
     end
@@ -72,7 +72,7 @@ for i = 0:maxitr
     end
     
     % Iterate x0 using Newton's Method
-    xbest = x0 - pxbest/pxprime;
+    xbest = x0 - (pxbest/pxprime);
     x0 = xbest;
     % Evaluate polynomial at new 'xbest' value
     pxbest = Horner(c,xbest);
@@ -82,8 +82,7 @@ end
 status = 1;
 fprintf('Iteration Limit Reached')
         % Synthetic Division
-        div = [1 xbest];
+        div = [1 -xbest];
         [q,r] = deconv(c,div);
-
 
 end
