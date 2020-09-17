@@ -18,7 +18,7 @@ end
 xbest = x0;
 pxbest = Horner(c,x0);
 nitr = 0;
-q = 'unknown';
+q = c;
 
 
 % Take derivative of polynomial with coefficients 'c' and store in 'cprime'
@@ -49,6 +49,7 @@ end
 
 for i = 0:maxitr
     afx = abs(pxbest);
+    nitr = i;
         
     if loud == 1
     fprintf('Itr:%d x:%.2f |f(x)|:%.2e\n',nitr,x0,afx)
@@ -56,6 +57,9 @@ for i = 0:maxitr
     
     if afx < epsilon
         status = 0;
+        % Synthetic Division
+        div = [1 xbest];
+        [q,r] = deconv(c,div);
         return
     end
     
@@ -78,5 +82,5 @@ end
 status = 1;
 fprintf('Iteration Limit Reached')
 
- 
+
 end
