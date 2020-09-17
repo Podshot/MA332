@@ -6,8 +6,10 @@ function [r, status] = AllRoots(c,x0,epsilon,maxitr,loud)
 %   in the next iteration. This repeats, calling Nettons' Method until all roots
 %   are found. Status = 0 indicates success. Status = 1 indicates that
 %   Newton's Method failed. Status = 2 is reserved for other failure of the
-%   function. Authors: Haley Braker, Ben Gothard, Madison Lindfelt, Taryn
-%   Perry. Date: 09-17-2020.
+%   function. User inputs 'epsilon' and 'maxitr' are the convergence
+%   criteria and maximum iterations, respectively, used in Newton's Method.
+%   Authors: Haley Braker, Ben Gothard, Madison Lindfelt, Taryn Perry
+%   Date: 09-17-2020.
 
 if nargin < 4
     error('Not Enough Inputs')
