@@ -28,13 +28,16 @@ if isreal(x0)
 end
 
 l = length(c) - 1;
-roots = zeros(1,l);    
+r = zeros(1,l);    
 
 for i = 1:l
-    [xbest,pxbest,nitr,q,status] = NewtonPoly(c,x0,epsilon,maxitr,loud);
-    roots(i) = xbest;
+    [xbest,pxbest,nitr,q,stat] = NewtonPoly(c,x0,epsilon,maxitr,loud);
+    if stat > status
+    status = stat;
+    end
+    
+    r(i) = xbest;
     c = q;
 
 end
 
-r = roots;
