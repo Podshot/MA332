@@ -29,6 +29,9 @@
 % Our Test Cases
 [result_6, status_6] = AllRoots([2 3 0 1 3 -3], 2-2j, 0.001, 10);
 [result_7, status_7] = AllRoots([4 0 0 3], 1+1j, 0.0001, 50);
+[result_8, status_8] = AllRoots([1 -7 19 -25 16 -4], 1-1i, 0.00001, 50);
+[result_9, status_9] = AllRoots([1 -99 -100], 1-1i, 0.0001, 50);
+[result_10, status_10] = AllRoots([4 20 69], 2+1j, 0.00001, 50);
 
 fprintf('\nx^2 - 10: ')
 disp(result_1)
@@ -64,3 +67,18 @@ fprintf('\n4*x^3 + 3: ')
 disp(result_7)
 fprintf('\nStatus: ')
 disp(status_7)
+
+fprintf('\nx^5 - 7*x^4 + 19*x^3 -25*x^2 + 16*x - 4: ')
+disp(result_8)
+fprintf('\nStatus: ')
+disp(status_8)
+
+fprintf('\nx^2 - 99*x - 100: ')
+disp(result_9)
+fprintf('\nStatus: ')
+disp(status_9)
+
+fprintf('\n4*x^2 + 20*x + 69: ')
+disp(result_10)
+fprintf('\nStatus: ')
+disp(status_10)
