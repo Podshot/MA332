@@ -29,6 +29,7 @@ end
 
 l = length(c) - 1;
 r = zeros(1,l);    
+status = 0;
 
 for i = 1:l
     [xbest,pxbest,nitr,q,stat] = NewtonPoly(c,x0,epsilon,maxitr,loud);
