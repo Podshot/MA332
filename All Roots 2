@@ -3,7 +3,7 @@ function [r, status] = AllRoots(c,x0,epsilon,maxitr,loud)
 %   This function uses Newton's Method to identify a root of the polynomial
 %   whose coefficents are input as 'c'. After a root is identified, the
 %   function uses deflation to form a new polynomial to replace 'c'
-%   in the next iteration. This repeats, calling Nettons' Method until all roots
+%   in the next iteration. This repeats, calling Newtons' Method until all roots
 %   are found. Status = 0 indicates success. Status = 1 indicates that
 %   Newton's Method failed. Status = 2 is reserved for other failure of the
 %   function. User inputs 'epsilon' and 'maxitr' are the convergence
