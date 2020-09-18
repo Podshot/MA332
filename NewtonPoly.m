@@ -80,7 +80,7 @@ for i = 0:maxitr
 end
 
 status = 1;
-fprintf('Iteration Limit Reached')
+
         % Synthetic Division
         div = [1 -xbest];
         [q,r] = deconv(c,div);
