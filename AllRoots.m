@@ -33,11 +33,15 @@ status = 0;
 
 for i = 1:l
     [xbest,pxbest,nitr,q,stat] = NewtonPoly(c,x0,epsilon,maxitr,loud);
+    % 'status' defaults to zero. If NewtonPoly returns a status of 1, this will fill status as the new value.
     if stat > status
     status = stat;
     end
     
+    % 'r' is array of roots found
     r(i) = xbest;
+    
+    % Set next polynomial using "deflated" polynomial from NewtonPoly
     c = q;
 
 end
