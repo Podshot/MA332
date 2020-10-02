@@ -1,4 +1,4 @@
-function [x,nrmfx,numitr,status]=test_1()
+function test_1()
 global A B C t c
 A = [15600 18760 17610 19170]; % x coords
 B = [7540 2750 14630 610]; % y coords
@@ -21,6 +21,7 @@ df4 = @(x) (2*(x(1)-A(4))+2*(x(2)-B(4))+2*(x(3)-C(4))+2*c*(c*t(4)-c*x(4)));
 df = @(x) [df1(x);df2(x);df3(x);df4(x)];
 
 [x,nrmfx,numitr,status] = NewtonSys(f,df,x0,0.001,50);
-disp(x);
-fprintf('Your x position is %d. \nYour y position is %d. \nYour z position is %d. \nd is %d.', x(1),x(2),x(3),x(4))
+fprintf('\nNumitr: %d', numitr);
+fprintf('\nStatus: %d', status);
+fprintf('\nYour x position is %d. \nYour y position is %d. \nYour z position is %d. \nd is %d.\n', x(1),x(2),x(3),x(4))
 end

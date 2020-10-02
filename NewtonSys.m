@@ -25,14 +25,13 @@ else
         x0 = x0 - xdx;
         %x0 = x0 - (feval(f, x0) / feval(df, x0));
         %x0 = x(mr,1);
-        nrmfx = feval(f, x0);
+        nrmfx = abs(feval(f, x0));
         
         if abs(nrmfx) < epsilon
             status = 0;
         end
         numitr = numitr + 1;
     end
-    disp(x0);
     x = x0;
 end
 end
