@@ -10,6 +10,7 @@ if iscolumn(x0) == 0
     numitr = 0;
     return;
 else
+    [r,c] = size(f);
     status = 1;
     numitr = 0;
     for i = 1:maxiter
@@ -17,14 +18,17 @@ else
         % df is the jacobian that has the coefficients
         % x0 = x0 - (f(x0)/df(x0)); - not sure if this is what we want
         % exactly but it's roughly what we are looking for
-        nrmfx = fM(x0);
+        x0 = x0 - (feval(f, x0) / feval(df, x0));
+        x0 = x0(:,3);
+        %x0 = x(mr,1);
+        nrmfx = feval(f, x0);
         
         if abs(nrmfx) < epsilon
             status = 0;
         end
-    
         numitr = numitr + 1;
     end
+    disp(x0);
     x = x0;
 end
 end
