@@ -1,14 +1,46 @@
-A1 = [15600 18760 17610 19170];
-B1 = [7540 2750 14630 610];
-C1 = [20140 18610 13480 18390];
-t1 = [0.07074 0.0722 0.07690 0.07242];
+% This script runs two test cases for our our GPS data
 
-A2 = [6378 12756 0 12756];
-B2 = [12756 0 12756 6378];
-C2 = [6378 6378 6378 0];
-t2 = [19900 2400 32600 19900];
+global light
+light = 299792;
 
+% Test Case 1
+A = [15600 18760 17610 19170]; % x coords
+B = [7540 2750 14630 610]; % y coords
+C = [20140 18610 13480 18390]; % z coords
+t = [0.07074 0.0722 0.07690 0.07242]; % times
+x0 = [0 0 6378 0]; % Initial guess is earth radius for z, or North Pole
 
-f1 = @(x1,x2,x3,x4) (x1-A1)^2+(x2-B1)^2+(x3-C1)^2-(c*(t1-d))^2;
+[f, df] = GPSData(A, B, C, D);
 
-f2 = @(x1,x2,x3,x4) (x1-A2)^2+(x2-B2)^2+(x3-C2)^2-(c*(t2-d))^2
+[x,nrmfx,itr,status] = NewtonSys(f,df,x0,0.001,50) 
+fprintf('Your x position is %d. Your y position is %d. Your z position is %d. d is %d.', x(1),x(2),x(3),x(4))
+
+% Test Case 2
+
+A = [6378 12756 0 12756]; % x coords
+B = [12756 0 12756 6378]; % y coords
+C = [6378 6378 6378 0]; % z coords
+t = [19900 2400 32600 19900]; % times
+
+[f, df] = GPSData(A, B, C, D);
+[x,nrmfx,itr,status] = NewtonSys(f,df,x0,0.001,50) 
+fprintf('Your x position is %d. Your y position is %d. Your z position is %d. d is %d.', x(1),x(2),x(3),x(4))
+
+function [f,df] = GPSData(A, B, C, D)
+
+global c
+
+f1 = @(x)(x(1)-A(1))^2+(x(2)-B(1))^2+(x(3)-C(1))^2-(c*(t(1)-x(4)))^2;
+f2 = @(x)(x(1)-A(2))^2+(x(2)-B(2))^2+(x(3)-C(2))^2-(c*(t(2)-x(4)))^2;
+f3 = @(x)(x(1)-A(3))^2+(x(2)-B(3))^2+(x(3)-C(3))^2-(c*(t(3)-x(4)))^2;
+f4 = @(x)(x(1)-A(4))^2+(x(2)-B(4))^2+(x(3)-C(4))^2-(c*(t(4)-x(4)))^2;
+
+f = @(x) {f1;f2;f3;f4};
+
+df1 = @(x) (2*(x(1)-A(1))+2*(x(2)-B(1))+2*(x(3)-C(1))+2*c*(c*t(1)-c*x(4));
+df1 = @(x) (2*(x(1)-A(2))+2*(x(2)-B(2))+2*(x(3)-C(2))+2*c*(c*t(2)-c*x(4));
+df1 = @(x) (2*(x(1)-A(3))+2*(x(2)-B(3))+2*(x(3)-C(3))+2*c*(c*t(3)-c*x(4));
+df1 = @(x) (2*(x(1)-A(4))+2*(x(2)-B(4))+2*(x(3)-C(4))+2*c*(c*t(4)-c*x(4));
+df = @(x) {df1;df2;df3;df4};
+
+end
