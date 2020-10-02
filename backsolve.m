@@ -1,4 +1,4 @@
-function y=backsolvetest(U,b) 
+function y=backsolve(U,b) 
 %Test--Comment block
 [m,n]=size(U);
 
