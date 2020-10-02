@@ -1,4 +1,4 @@
-function x=backsolvetest(L,U,b) 
+function x=backsolvetest(L,U,b,pvector) 
 % This function solves Ax = b after A has been factored into LU up to permutation by p.
 %
 % The input arguments are
