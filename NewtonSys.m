@@ -20,6 +20,12 @@ function [x, nrmfx, numitr, status]=NewtonSys(f, df, x0, epsilon, maxiter)
 %       tolerance was reached
 %   2: Another problem was encountered
 
+% Created in 2020 by
+% - Haley Braker
+% - Ben Gothard
+% - Madison Lindfelt
+% - Taryn Perry
+
 if iscolumn(x0) == 0
     warning('x0 must be a column vector')
     status = 2;
@@ -44,10 +50,11 @@ else
         % x(k+1) = x(k) + s -> x(k+1) = x(k) + (x(k+1) - x(k)) -> x(k+1) =
         % `x(k+1)
 
-        nrmfx = abs(feval(f, x0)); % Compute the valu of |f(x)| at our current guess
+        nrmfx = abs(feval(f, x0)); % Compute the value of |f(x)| at our current guess
         
         if abs(nrmfx) < epsilon % Termination condition
             status = 0;
+            break;
         end
         numitr = numitr + 1; % Increase our iteration number
         
