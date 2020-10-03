@@ -23,7 +23,7 @@ status = 0;
 
 %assert(m == n); % assert whether A is square matrix
 %assert(o == n);
-psize = size(pvector);
+psize = size(pvector); % Returns two values (r, c), we want c
 
 for i=1:psize(2)   % Forward Solver - decrementing starting at m
     temp=b(pvector(i));
