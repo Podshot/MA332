@@ -1,0 +1,54 @@
+function x=backsolve(L,U,b,pvector) 
+% This function solves Ax = b after A has been factored into LU up to permutation by p.
+%
+% The input arguments are
+% L - A square lower triangular square matrix L with ones on the main diagonal. 
+% U - An upper triangular matrix U. L and U are not assumed to have consistent dimensions. 
+% p - A permutation vector p. It is assumed that LU = A(p,:). 
+% b - The right-hand side vector in Ax = b, b is not assumed to have consistent dimensions with A.
+%
+% The output arguments are
+% x - A solution x to Ax = b if the problem is consistent.
+% status - A status variable encoded as follows:
+%   status 0: Ax = b is consistent with a unique solution. 
+%   status 1: Ax = b is consistent with an in?nite number of solutions, in which case a solution to Ax = b is returned in x. 
+%   status 2: Ax = b is inconsistent. status 3: The function failed for some other reason, such as input arguments with inconsistent dimensions.
+
+[m,n]=size(U);
+[o,p]=size(L);
+
+y=zeros([p 1]);
+x=zeros([n 1]);
+
+%assert(m == n); % assert whether A is square matrix
+%assert(o == n);
+
+for i=1:size(pvector)   % Forward Solver - decrementing starting at m
+    temp=b(pvector(i));
+    for j=1:(pvector(i)-1)  
+        temp=temp-L(pvector(i),j)*y(j);
+    end
+    if L(pvector(i),pvector(i))==0 && temp==0 % Bad to test for equality.
+        y(pvector(i))=0;
+    elseif L(pvector(i),pvector(i))==0
+        error('Inconsistent')
+    else
+        y(pvector(i))=temp/L(i,i);
+    end
+end
+% y=y';
+
+for i=m:-1:1    % Backsolver - decrementing starting at m
+    temp=y(pvector(i));
+    for j=(pvector(i)+1):n  
+        temp=temp-U(pvector(i),j)*x(j);
+    end
+    if U(pvector(i),pvector(i))==0 && temp==0 % Bad to test for equality.
+        x(i)=0;
+    elseif U(pvector(i),pvector(i))==0
+        error('Inconsistent')
+    else
+        x(pvector(i))=temp/U(pvector(i),pvector(i));
+    end
+end
+% x=x';
