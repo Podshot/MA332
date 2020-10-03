@@ -1,4 +1,4 @@
-function x=backsolve(L,U,b,pvector) 
+function [x, status]=backsolve(L,U,b,pvector) 
 % This function solves Ax = b after A has been factored into LU up to permutation by p.
 %
 % The input arguments are
@@ -19,11 +19,13 @@ function x=backsolve(L,U,b,pvector)
 
 y=zeros([p 1]);
 x=zeros([n 1]);
+status = 0;
 
 %assert(m == n); % assert whether A is square matrix
 %assert(o == n);
+psize = size(pvector);
 
-for i=1:size(pvector)   % Forward Solver - decrementing starting at m
+for i=1:psize(2)   % Forward Solver - decrementing starting at m
     temp=b(pvector(i));
     for j=1:(i-1)  
         temp=temp-L(pvector(i),j)*y(j);
@@ -31,6 +33,7 @@ for i=1:size(pvector)   % Forward Solver - decrementing starting at m
     if L(i,i)==0 && temp==0 % Bad to test for equality.
         y(i)=0;
     elseif L(i,i)==0
+        status = 2;
         error('Inconsistent')
     else
         y(i)=temp/L(i,i);
@@ -46,6 +49,7 @@ for i=m:-1:1    % Backsolver - decrementing starting at m
     if U(i,i)==0 && temp==0 % Bad to test for equality.
         x(i)=0;
     elseif U(i,i)==0
+        status = 2;
         error('Inconsistent')
     else
         x(i)=temp/U(i,i);
