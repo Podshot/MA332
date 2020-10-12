@@ -1,0 +1,23 @@
+% This script uses the method of least squares to approximate daily average
+% temperatures for using f(d) = a0 + a1*d + a2*cos(2*Pi*d/365.25 - phi).
+% This scipt also plots the daily average termperature data against the
+% generated least squares approximation.
+
+% Original data to plot
+
+% Matrix of coefficients for cos/sin
+A = []
+% Matrix of temperature data
+b = []
+
+% Coefficients found from solving Ax = b, where x holds the a0, a1, a3, and
+% a4 values
+[a0, a1, a3, a4] = A\b;
+
+% a2 is computed from a3 and a4 as these were separated to form a linear
+% function. Phi is also related to a3 and a4 below.
+a2 = sqrt(a3^2 + a4^2);
+phi = arctan(a4/a3);
+
+% Least squares approximation
+f = @(d) a0+a1*d+a2*cos(2*pi*d/365.25 - phi);
