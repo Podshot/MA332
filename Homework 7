@@ -1,5 +1,5 @@
 % This script uses the method of least squares to approximate daily average
-% temperatures for using f(d) = a0 + a1*d + a2*cos(2*Pi*d/365.25 - phi).
+% temperatures for Rancho Cucamonga, CA using f(d) = a0 + a1*d + a2*cos(2*Pi*d/365.25 - phi).
 % This scipt also plots the daily average termperature data against the
 % generated least squares approximation.
 
