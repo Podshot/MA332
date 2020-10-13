@@ -4,8 +4,10 @@
 % generated least squares approximation.
 
 % Original data to plot. Assume these are vectors for now and plot x vs y
-x = []
-y = []
+x = [1 2 3 4 5 6 7];
+
+% Matrix of temperature data
+y = [49.7;51.2;49.1;50.5;50.9;52.6;50.4];
 
 
 % Matrix of coefficients for cos/sin
@@ -15,13 +17,11 @@ A = [1, 1, cos(2*pi*1/365.25) sin(2*pi*1/365.25);
     1, 4, cos(2*pi*4/365.25) sin(2*pi*4/365.25);
     1, 5, cos(2*pi*5/365.25) sin(2*pi*5/365.25);
     1, 6, cos(2*pi*6/365.25) sin(2*pi*6/365.25);
-    1, 7, cos(2*pi*7/365.25) sin(2*pi*7/365.25);]
-% Matrix of temperature data
-b = [49.7;51.2;49.1;50.5;50.9;52.6;50.4];
+    1, 7, cos(2*pi*7/365.25) sin(2*pi*7/365.25);];
 
 % Coefficients found from solving Ax = b, where x holds the a0, a1, a3, and
 % a4 values
-[C] = A\b;
+[C] = A\y;
 a0 = C(1);
 a1 = C(2);
 a3 = C(3);
@@ -30,7 +30,7 @@ a4 = C(4);
 % a2 is computed from a3 and a4 as these were separated to form a linear
 % function. Phi is also related to a3 and a4 below.
 a2 = sqrt(a3^2 + a4^2);
-phi = arctan(a4/a3);
+phi = Atan(a4/a3);
 
 % Least squares approximation
 f = @(d) a0+a1*d+a2*cos(2*pi*d/365.25 - phi);
