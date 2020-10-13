@@ -1,15 +1,16 @@
 % This script uses the method of least squares to approximate daily average
-% temperatures for Rancho Cucamonga, CA using f(d) = a0 + a1*d + a2*cos(2*Pi*d/365.25 - phi).
+% temperatures for San Dimas, CA (per Haley Rancho Cucamonga girl) 
+% using f(d) = a0 + a1*d + a2*cos(2*Pi*d/365.25 - phi).
 % This scipt also plots the daily average termperature data against the
 % generated least squares approximation.
 
-% Original data to plot. Assume these are vectors for now and plot x vs y
+% Original data to plot.
 x = [1;2;3;4;5;6;7];
 
 % Matrix of temperature data
 y = [49.7;51.2;49.1;50.5;50.9;52.6;50.4];
 
-% Generate plot of x-y data (time-temperature)
+% Generate plot of x-y data (temperature vs time)
 plot(x,y,'b');
 hold on;
 
@@ -37,7 +38,8 @@ phi = atan(a4/a3);
 
 % Least squares approximation
 f = @(d) a0+a1*d+a2*cos(2*pi*d/365.25 - phi);
-% Generate plot of this funtion over the same range (and on same graph) as the x-y data above
+
+% Generate plot of this funtion over the same range as the x-y data above
 n=length(x);
 ab=[1,n];
 f_vect=eye(ab);
