@@ -4,11 +4,14 @@
 % generated least squares approximation.
 
 % Original data to plot. Assume these are vectors for now and plot x vs y
-x = [1 2 3 4 5 6 7];
+x = [1;2;3;4;5;6;7];
 
 % Matrix of temperature data
 y = [49.7;51.2;49.1;50.5;50.9;52.6;50.4];
 
+% Generate plot of x-y data (time-temperature)
+%plot(x,y,'b');
+%hold on;
 
 % Matrix of coefficients for cos/sin
 A = [1, 1, cos(2*pi*1/365.25) sin(2*pi*1/365.25);
@@ -30,8 +33,18 @@ a4 = C(4);
 % a2 is computed from a3 and a4 as these were separated to form a linear
 % function. Phi is also related to a3 and a4 below.
 a2 = sqrt(a3^2 + a4^2);
-phi = Atan(a4/a3);
+phi = atan(a4/a3);
 
 % Least squares approximation
 f = @(d) a0+a1*d+a2*cos(2*pi*d/365.25 - phi);
 % Generate plot of this funtion over the same range (and on same graph) as the x-y data above
+n=length(x);
+ab=[1,n];
+f_vect=eye(ab);
+for i=1:n
+    j=x(i);
+    f_vect(i)=f(j);
+end
+plot(j,f_vect,'o');
+hold on;
+plot(x,y,'g');
