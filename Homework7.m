@@ -10,7 +10,7 @@
 % Madison Lindfelt (2023)
 
 weather_data = readtable('weather_data.csv','HeaderLines',0);
-date_offset = datenum(weather_data.DATE(1));
+date_offset = datenum(weather_data.DATE(1))-1;
 
 % Date vector
 x = datenum(weather_data.DATE) - date_offset;
@@ -21,7 +21,7 @@ y = weather_data.TAVG;
 
 
 % Generate plot of x-y data (temperature vs time)
-plot(x,y,'o');
+p1 = plot(x,y,'g*','MarkerSize',1.25);
 hold on;
 
 n=length(x);
@@ -59,5 +59,7 @@ for i=1:n
     j=x(i);
     f_vect(i)=f(j);
 end
-plot(x,f_vect,'g');
+p2 = plot(x,f_vect,'b');
+legend([p1,p2],'Data','Least Squares');
 hold on;
+
