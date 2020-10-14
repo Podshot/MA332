@@ -3,6 +3,12 @@
 % using f(d) = a0 + a1*d + a2*cos(2*Pi*d/365.25 - phi).
 % This scipt also plots the daily average termperature data against the
 % generated least squares approximation.
+% Authors:
+% Ben Gothard (2021)
+% Haley Braker (2022)
+% Taryn Perry (2022)
+% Madison Lindfelt (2023)
+
 
 % Original data to plot.
 x = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40];
