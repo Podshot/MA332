@@ -59,7 +59,8 @@ for i=1:n
     j=x(i);
     f_vect(i)=f(j);
 end
-p2 = plot(x,f_vect,'b');
+p2 = plot(x,f_vect,'k');
 legend([p1,p2],'Data','Least Squares');
-hold on;
-
+title('Daily Temps in Rancho Cucamonga,CA');
+xlabel('Days');
+ylabel('Temperature (F)');
