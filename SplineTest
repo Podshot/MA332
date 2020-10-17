@@ -1,0 +1,8 @@
+% This script provides the stress-strain data from the article provided
+% (see write-up), calls the CubicSpline function to fit a spline for the
+% data and plots the results.
+
+x = [-4.9 -1.7 0.4 0.7 1.4 4.4];
+y = [9.1 7.7 2.8 9.1 6.3 0.8];
+
+z = CubicSpline(x,y);
