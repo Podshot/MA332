@@ -1,0 +1,75 @@
+function [z] = CubicSpline(x,y,v)
+%CubicSpline: This fuction determines the natural cubic spline for x-y data
+%that the user provides.
+%   Detailed explanation goes here
+% Authors:
+% Ben Gothard (2021)
+% Haley Brake (2022)
+% Taryn Perry (2022)
+% Madison Lindfelt (2023)
+
+if nargin < 2
+    error("not enough inputs")
+end
+
+if nargin < 3
+    v = [];
+end
+
+if length(x)~= length(y)
+    error("you must specify the same number of 'x' and 'y' data points")
+end
+
+n = length(x);
+
+x1 = x;
+y1 = y;
+Dif = diff(x1);
+Dif2 = diff(y1);
+
+% Initialize a vector for the main diag values
+deltas = zeros(n-2,1);
+% Initialize the 'beta' vector of constants
+beta = zeros(n-2,1);
+
+% Populate a vector for the 2*(delx1 + delx0) values on the main diagonal
+for i = 1:n-2
+    deltas(i) = 2*(Dif(i+1)+Dif(i));
+end
+
+% Populate a 'beta' vector which is the "constants" vector
+for i = 1:n-2
+    beta(i) = (Dif2(i+1)/Dif(i+1))-(Dif2(i)/Dif(i));
+end
+
+% 'b' is multiplied by 6 per eqn 3.23 in the textbook
+beta = 6.*beta;
+
+DifTest = Dif;
+DifTest(1) = [];
+DifTest(n-2) = [];
+% Create coefficient matrix
+C = diag(deltas) + diag(DifTest,1) + diag(DifTest,-1);
+
+% Initialize s
+s = zeros(1,n);
+
+% Ensure that s0 and sn remain as 0, while the solves s values populate
+% s(2) through s(n-1)
+
+%[s(2:n-1)] = TDMS(C,b);
+[s(2:n-1)] = C\beta;
+
+% Determine 'a', 'b', 'c', and 'd' values based on 'y' and the solved 's'
+% vector
+for i = 1:n-1
+    a(i) = y(i);
+    b(i) = (y(i+1)-y(i))/Dif(i) - (s(i+1)+2*s(i))*Dif(i)/6;
+    c(i) = s(i)/2;
+    d(i) = (s(i+1)-s(i))/(6*Dif(i));
+
+end
+disp(a)
+disp(b)
+disp(c)
+disp(d)
