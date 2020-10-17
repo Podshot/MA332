@@ -57,8 +57,7 @@ s = zeros(1,n);
 % Ensure that s0 and sn remain as 0, while the solves s values populate
 % s(2) through s(n-1)
 
-%[s(2:n-1)] = TDMS(C,b);
-[s(2:n-1)] = C\beta;
+[s(2:n-1)] = TDMS(C,b);
 
 % Determine 'a', 'b', 'c', and 'd' values based on 'y' and the solved 's'
 % vector
