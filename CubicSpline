@@ -13,7 +13,7 @@ if nargin < 2
 end
 
 if nargin < 3
-    v = [];
+    v = x;
 end
 
 if length(x)~= length(y)
@@ -61,14 +61,52 @@ s = zeros(1,n);
 
 % Determine 'a', 'b', 'c', and 'd' values based on 'y' and the solved 's'
 % vector
+a = zeros(1,n-1);
+b = zeros(1,n-1);
+c = zeros(1,n-1);
+d = zeros(1,n-1);
+
 for i = 1:n-1
-    a(i) = y(i);
-    b(i) = (y(i+1)-y(i))/Dif(i) - (s(i+1)+2*s(i))*Dif(i)/6;
+    a(i) = y1(i);
+    b(i) = (y1(i+1)-y1(i))/Dif(i) - (s(i+1)+2*s(i))*Dif(i)/6;
     c(i) = s(i)/2;
     d(i) = (s(i+1)-s(i))/(6*Dif(i));
 
 end
-disp(a)
-disp(b)
-disp(c)
-disp(d)
+
+m = length(v);
+z = zeros(m,1);
+
+% loop through the vector 'v' and evaluate at all the values provided
+for i = 1:m
+    
+    if v(i) < x1(1)
+        j = 1; % estimate with the closest cubic
+        % If v(i) does not fall between x0 and xn an error displays
+        % to warn that the value isn't and accurate estimate
+        warning("the provided value of 'v' falls outside the evaluated x-interval")
+    elseif v(i) > x(n)
+        j = n - 1; % estimate with the closest cubic
+        % If v(i) does not fall between x0 and xn an error displays
+        % to warn that the value isn't and accurate estimate
+        warning("the provided value of 'v' falls outside the evaluated x-interval")
+    elseif v(i) == x(n)
+        j = n -1;
+        
+    else        
+    % Determine which interval v(i) falls in. The jth interval is used for
+    % evaluating this v(i) value
+    for k = 1:n-1
+        if v(i) >= x(k) && v(i) < x(k+1)
+            j = k;
+            break
+        end
+      
+    end
+    end
+      
+    z(i) = a(j) + b(j)*(v(i) - x1(j)) + c(j)*(v(i) - x1(j))^2 + d(j)*(v(i) - x1(j))^3;
+    
+end
+
+end
