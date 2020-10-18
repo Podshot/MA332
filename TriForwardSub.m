@@ -10,4 +10,3 @@ for i=2:n
 end
 
 end
-
