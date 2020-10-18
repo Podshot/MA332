@@ -1,0 +1,35 @@
+function [x,status]=TDMS2(A,b)
+[n,m] = size(A);
+lg = length(b);
+
+if n ~= b
+    status = 1;
+end
+    
+I = eye(n,m);
+U = A;
+L = eye(n,m);
+
+for i=1:(n - 1)
+    L(i+1,i) = U(i+1,i) / U(i,i);
+    U(i+1,i) = U(i+1,i) - L(i+1,i)*U(i,i);
+    U(i+1,i+1) = U(i+1,i+1) - L(i+1,i)*U(i,i+1);
+end
+
+% Ly = b
+y = b;
+for i=2:n
+    y(i) = b(i) - L(i,i-1)*y(i-1);
+end
+
+% Ux = y
+
+x = b;
+x(n) = b(n)/U(n,n);
+
+for i= (n-1):-1:1
+    x(i) = (b(i)- U(i,i+1)*x(i+1))/U(i,i);
+end
+
+
+end
