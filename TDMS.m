@@ -1,9 +1,18 @@
 function [x,status]=TDMS(A,b)
-[n1,n2] = size(A);
-I = eye(n1,n2);
-[L,U] = TriLU(A,I);
-[x, x_status] = TriForwardSub(L,b);
-[y, y_status] = TriBackwardSub(U,x);
-disp(x);
-disp(y);
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+[n,m] = size(A);
+lg = length(b);
+
+if n ~= lg
+    status = 1;
+    error("A and b must have the same number of rows")
+end
+
+[L,U] = TriLU(A);
+[y, y_status] = TriForwardSub(L,b);
+[x, x_status] = TriBackwardSub(U,y);
+
+
 end
