@@ -1,12 +1,13 @@
-function [x, status] = TriForwardSub(L, b)
+function [y, status] = TriForwardSub(L, b)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-[n, n1] = size(L);
-status = 0;
-x = b;
-x(1) = b(1);
+[n, m] = size(L);
+
+y = b;
 for i=2:n
-    x(i) = b(i) - L(i,i-1)*x(i-1);
+    y(i) = b(i) - L(i,i-1)*y(i-1);
 end
+
+status = 0;
 
 end
