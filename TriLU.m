@@ -6,6 +6,6 @@ L = I;
 
 for i=1:(n - 1)
     L(i+1,i) = U(i+1,i) / U(i,i);
-    U(i+1,i) = U(i+1,i) - L(i+1,i)*U(i,i)
+    U(i+1,i) = U(i+1,i) - L(i+1,i)*U(i,i);
 end
 end
