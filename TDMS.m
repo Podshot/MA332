@@ -7,7 +7,8 @@ lg = length(b);
 
 if n ~= lg
     status = 1;
-    error("A and b must have the same number of rows")
+    warning("A and b must have the same number of rows")
+    return
 end
 
 [L,U] = TriLU(A);
