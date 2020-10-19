@@ -1,12 +1,19 @@
 function [z] = CubicSpline(x,y,v)
-%CubicSpline: This fuction determines the natural cubic spline for x-y data
-%that the user provides.
-%   Detailed explanation goes here
-% Authors:
-% Ben Gothard (2021)
-% Haley Brake (2022)
-% Taryn Perry (2022)
-% Madison Lindfelt (2023)
+% Determines the natural cubic spline for x-y data that is inputed
+
+% Inputs:
+% x - vector containing the x-coordinates of the data
+% y - vector containing the y-coordinates of the data
+% v - optional argument(with default x)
+
+% Outputs:
+% z - vector containing natural cubic spline function
+
+% Created on 10/18/2020 by
+% - Haley Braker
+% - Ben Gothard
+% - Madison Lindfelt
+% - Taryn Perry
 
 if nargin < 2
     error("not enough inputs")
