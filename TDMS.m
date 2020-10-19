@@ -1,19 +1,33 @@
 function [x,status]=TDMS(A,b)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% Solves the equation "Ax=b" finding the x-value
 
-[n,m] = size(A);
-lg = length(b);
+% Inputs:
+% A - A tridiagonal matrix
+% b - Vector that relates to the equation "Ax=b"
+
+% Outputs:
+% x - The computed solution found for x
+% status - The resulting status of the function call
+%   0: The function returned successfully
+%   1: The inputted A and b values do not have the same number of rows
+
+% Created on 10/18/2020 by
+% - Haley Braker
+% - Ben Gothard
+% - Madison Lindfelt
+% - Taryn Perry
+
+[n,m] = size(A);    %size of matrix
+lg = length(b);     %length of vector
 
 if n ~= lg
-    status = 1;
-    warning("A and b must have the same number of rows")
-    return
+    status = 1;     %set status to 1 is n doesn't equal length(b)
+    error("A and b must have the same number of rows")
 end
 
-[L,U] = TriLU(A);
-[y, y_status] = TriForwardSub(L,b);
-[x, x_status] = TriBackwardSub(U,y);
+[L,U] = TriLU(A);                       %call TriLU function
+[y, y_status] = TriForwardSub(L,b);     %call TriForwardSub function
+[x, x_status] = TriBackwardSub(U,y);    %call TriBackwardSub function
 
 
 end
