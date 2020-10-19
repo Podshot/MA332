@@ -29,5 +29,11 @@ end
 [y, y_status] = TriForwardSub(L,b);     %call TriForwardSub function
 [x, x_status] = TriBackwardSub(U,y);    %call TriBackwardSub function
 
+if y_status == 0 && x_status == 0
+    status = 0;                         %if both Sub functions returned
+                                        %successfully, set status  to 0
+else
+    status = 1;
+end
 
 end
