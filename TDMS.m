@@ -1,5 +1,6 @@
 function [x,status]=TDMS(A,b)
-% Solves the equation "Ax=b" finding the x-value
+% Solves the equation "Ax=b" finding the x-value, provided A is a
+% tridiagonal matrix
 
 % Inputs:
 % A - A tridiagonal matrix
