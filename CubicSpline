@@ -116,26 +116,30 @@ for i = 1:m
     
 end
 
+%%%%%%%%%%%%%%%%%%%%
+% This section was used to compare spline with the article. Reformatting
+% was necessary to match article format for accurate comparison.
 
-A = zeros(1,n-1);
-B = zeros(1,n-1);
-C = zeros(1,n-1);
-D = zeros(1,n-1);
-
-
-% loop through the vector 'x' and change coefficients so that spline has
-% the form Ax^3 + Bx^2 + Cx + D
-for i = 1:n-1
-    
-    A(i) = d(i);
-    B(i) = c(i) - 3*d(i)*x(i);
-    C(i) = b(i) - 2*c(i)*x(i) + 3*d(i)*x(i)^2;
-    D(i) = a(i) - b(i)*x(i) + c(i)*x(i)^2 - d(i)*x(i)^3;
-    
-    % Print values as a test to compare with article
-    fprintf("%.4f x^3 + %.4f x^2 + %.4f x + %.4f x is subset [%.4f, %.4f]\n",A(i),B(i),C(i),D(i),x(i),x(i+1))
-    
-end
+% % Initialize variables for alternative coefficients
+% A = zeros(1,n-1);
+% B = zeros(1,n-1);
+% C = zeros(1,n-1);
+% D = zeros(1,n-1);
+% 
+% 
+% % loop through the vector 'x' and change coefficients so that spline has
+% % the form Ax^3 + Bx^2 + Cx + D
+% for i = 1:n-1
+%     
+%     A(i) = d(i);
+%     B(i) = c(i) - 3*d(i)*x(i);
+%     C(i) = b(i) - 2*c(i)*x(i) + 3*d(i)*x(i)^2;
+%     D(i) = a(i) - b(i)*x(i) + c(i)*x(i)^2 - d(i)*x(i)^3;
+%     
+%     % print values as a test to compare with article
+%     fprintf("%.4f x^3 + %.4f x^2 + %.4f x + %.4f, x is subset [%.4f, %.4f]\n",A(i),B(i),C(i),D(i),x(i),x(i+1))
+%     
+% end
 
 
 end
