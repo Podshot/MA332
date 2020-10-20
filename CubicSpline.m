@@ -1,12 +1,19 @@
 function [z] = CubicSpline(x,y,v)
-%CubicSpline: This fuction determines the natural cubic spline for x-y data
-%that the user provides.
-%   Detailed explanation goes here
-% Authors:
-% Ben Gothard (2021)
-% Haley Brake (2022)
-% Taryn Perry (2022)
-% Madison Lindfelt (2023)
+% Determines the natural cubic spline for x-y data that is inputed
+
+% Inputs:
+% x - vector containing the x-coordinates of the data
+% y - vector containing the y-coordinates of the data
+% v - optional argument(with default x)
+
+% Outputs:
+% z - vector containing natural cubic spline function
+
+% Created on 10/18/2020 by
+% - Haley Braker
+% - Ben Gothard
+% - Madison Lindfelt
+% - Taryn Perry
 
 if nargin < 2
     error("not enough inputs")
@@ -57,7 +64,7 @@ s = zeros(1,n);
 % Ensure that s0 and sn remain as 0, while the solves s values populate
 % s(2) through s(n-1)
 
-[s(2:n-1)] = TDMS(C,b);
+[s(2:n-1)] = TDMS(C,beta);
 
 % Determine 'a', 'b', 'c', and 'd' values based on 'y' and the solved 's'
 % vector
@@ -108,5 +115,31 @@ for i = 1:m
     z(i) = a(j) + b(j)*(v(i) - x1(j)) + c(j)*(v(i) - x1(j))^2 + d(j)*(v(i) - x1(j))^3;
     
 end
+
+%%%%%%%%%%%%%%%%%%%%
+% This section was used to compare spline with the article. Reformatting
+% was necessary to match article format for accurate comparison.
+
+% % Initialize variables for alternative coefficients
+% A = zeros(1,n-1);
+% B = zeros(1,n-1);
+% C = zeros(1,n-1);
+% D = zeros(1,n-1);
+% 
+% 
+% % loop through the vector 'x' and change coefficients so that spline has
+% % the form Ax^3 + Bx^2 + Cx + D
+% for i = 1:n-1
+%     
+%     A(i) = d(i);
+%     B(i) = c(i) - 3*d(i)*x(i);
+%     C(i) = b(i) - 2*c(i)*x(i) + 3*d(i)*x(i)^2;
+%     D(i) = a(i) - b(i)*x(i) + c(i)*x(i)^2 - d(i)*x(i)^3;
+%     
+%     % print values as a test to compare with article
+%     fprintf("%.4f x^3 + %.4f x^2 + %.4f x + %.4f, x is subset [%.4f, %.4f]\n",A(i),B(i),C(i),D(i),x(i),x(i+1))
+%     
+% end
+
 
 end
