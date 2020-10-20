@@ -1,6 +1,7 @@
 function [x, status] = TriForwardSub(L, b)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% Performs forward substitution on the given L matrix in relation to the supplied b column vector
+% Returns the forward substituted values in x, status is always 0 since I wasn't sure which errors 
+% the function could encounter
 [n, n1] = size(L);
 status = 0;
 x = b;
