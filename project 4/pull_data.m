@@ -29,6 +29,13 @@ b=x2(2);         %get b
 xval=linspace(min(x), max(x));        %x-values of predicted
 yval=aa*exp(b*xval);                  %y-values of predicted
 reg_func=@(x)(aa*exp(b*x));           %predicted function handle
+
+global x y
+outF = F(a, b);
+dFA = diff(outF, a);
+dFB = diff(outF, b);
+
+
 plot(xval,yval,'b');                  %plot of predicted function
 legend('Actual Data','Predicted Function');
 fprintf('f(x)=(%5.3e)*e^(%5.5f*x))',aa,b);
