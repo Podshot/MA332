@@ -25,18 +25,26 @@ lny=log(y(:));                   %ensure y is a column vector and take ln
 
 x2=m\lny;        %solve for parameters
 aa=exp(x2(1));    %solve for A
+w=2.07;
 bb=x2(2);         %get b
 xval=linspace(min(x), max(x));        %x-values of predicted
 yval=aa*exp(bb*xval);                  %y-values of predicted
 reg_func=@(x)(aa*exp(bb*x));           %predicted function handle
 
-global x y
-outF = F([x2(1);x2(2)]);
 syms a b
-dFA = diff(outF, a);
-dFB = diff(outF, b);
+outF = F([x2(1);x2(2)],x,y);
+dF = @(a, b)(-exp(b*x));
+ddF = @(a, b)(-a*x*exp(b*x));
 
+[xbest,fbest,itrcnt,status]=NewtonOpt(@F,@dF,@ddF,[x2(1);x2(2)],10^-6,10^-8,100,1);
+AA=xbest(1,1);      %A value for predicted function
+cc=xbest(2,1)*w;    %b value for predicted function
+x_pred=x;
+y_pred=[AA*exp(x*cc)];
 
-plot(xval,yval,'b');                  %plot of predicted function
+disp(AA);
+disp(cc);
+
+plot(x_pred,y_pred,'b');        %plot of predicted function
 legend('Actual Data','Predicted Function');
-fprintf('f(x)=(%5.3e)*e^(%5.5f*x))',aa,bb);
+fprintf('f(x)=(%5.3f)*e^(%5.5f*x))\n',AA,cc);
