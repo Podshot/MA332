@@ -25,17 +25,18 @@ lny=log(y(:));                   %ensure y is a column vector and take ln
 
 x2=m\lny;        %solve for parameters
 aa=exp(x2(1));    %solve for A
-b=x2(2);         %get b
+bb=x2(2);         %get b
 xval=linspace(min(x), max(x));        %x-values of predicted
-yval=aa*exp(b*xval);                  %y-values of predicted
-reg_func=@(x)(aa*exp(b*x));           %predicted function handle
+yval=aa*exp(bb*xval);                  %y-values of predicted
+reg_func=@(x)(aa*exp(bb*x));           %predicted function handle
 
 global x y
-outF = F(a, b);
+outF = F([x2(1);x2(2)]);
+syms a b
 dFA = diff(outF, a);
 dFB = diff(outF, b);
 
 
 plot(xval,yval,'b');                  %plot of predicted function
 legend('Actual Data','Predicted Function');
-fprintf('f(x)=(%5.3e)*e^(%5.5f*x))',aa,b);
+fprintf('f(x)=(%5.3e)*e^(%5.5f*x))',aa,bb);
