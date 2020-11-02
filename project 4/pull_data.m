@@ -1,3 +1,11 @@
+% Pulls the data from get_global and computes the exponential predicted
+% function
+
+% Created on 10/31/2020 by
+% - Haley Braker
+% - Ben Gothard
+% - Madison Lindfelt
+
 clear all
 clc
 % confirmed
