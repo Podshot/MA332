@@ -1,32 +1,42 @@
 function [xbest,fbest,itrcnt,stat] = NewtonOpt(f, Df, Df2, x0, gradTol, xTol, itrBound, s)
-%NEWTONOPT Summary of this function goes here
-%   Detailed explanation goes here
+% Minimizes the function and finds the coefficients for the predicted
+% exponential function
+
+% Inputs:
+% f - function handle to be minimized
+% Df - function handle that evaluates the gradient
+% Df2 - function handle that evaluates the Hessian
+% x0 - initial iterate
+% gradTol - termination criterion
+% xTol - termination criterion
+% itrBound - maximum number of iterations
+% s - line search parameter
+
+% Outputs:
+% xbest - The best x value calculated by minimization by Newton's method
+% fbest - The value of the provided function at xbest
+% itrcnt - number of iterations
+% stat - The status code representing the exit condition of the algorithm
+
+% Created on 10/31/2020 by
+% - Haley Braker
+% - Ben Gothard
+% - Madison Lindfelt
 
 x = x0;
 last_x = 0;
 
 stat = 1;
 
-if s == 1
-    alpha = @(x_, d_)(1);
-elseif s == 2 % Lagrange polynomial is simplified due to a1, a2, and a3 being constans
-   alpha = @(x_,d_)((-3*f(x_) + 4*f(x_ + d_) + f(x_ + 2 * d_))/ ...
-       (-2*f(x_) + 4*f(x_ + d_) - 2*f(x_ + 2 * d_)));
-   % Non-simplified equation used can be found on pg. 132
-else % I'm not super confident about this bisection algorithm
-    %alpha = @(x_, d_)(bisection_helper(f, Df, x_, d_));
-    alpha = @(x_, d_)(1);
-end
-
+itrcnt = 1;
 i = 0;
 while i >= itrBound
-   function_value = f(x);
+   function_val = f(x);
    gradient_value = Df(x);
-   direction = -(gradient_value/Df2(x));
-   
+   H = Df2(x);
+
    last_x = x;
-   %x = x - (gradient_value/H);
-   x = x + direction;
+   x = x - (gradient_value/H);
    
    i = i + 1;
    if abd(gradient_val) < gradTol
@@ -37,8 +47,7 @@ while i >= itrBound
        break;
    end
 end
-itrcnt = i;
+
 xbest = x;
 fbest = f(xbest);
 end
-
