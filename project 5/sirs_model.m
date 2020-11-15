@@ -1,16 +1,15 @@
 clear all
-%beta = 0.45;
-%beta = 1;
-%xi = 0.75;
-%gamma = 1/5;
-beta = .171;
-xi = 0.025;
+
+months = 9;
+
+beta = 1/2.5;
+xi = (1/months)*(1/30);
 gamma = 0.1;
 N = 1000.0;
 
 parameters = [beta, xi, gamma, N];
 
-sim_len = [0, 400];
+sim_len = [0, 650];
 
 y0 = [N - 1, 1, 0];
 
@@ -30,7 +29,7 @@ function v = sirs(t, y, params)
     g = params(3);
     n = params(4);
     
-    v(1) = ((-b * S * I) / n) + (x_x * R);
+    v(1) = (-(b * S * I) / n) + (x_x * R);
     v(2) = ((b * S * I) / n) - (g * I);
     v(3) = (g * I) - (x_x * R);
 end
